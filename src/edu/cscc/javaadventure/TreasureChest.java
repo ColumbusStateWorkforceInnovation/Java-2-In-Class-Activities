@@ -8,8 +8,7 @@ package edu.cscc.javaadventure;
  * A treasure chest also has a weight and a description. The description is
  * different depending on if the chest is locked or not.
  */
-public class TreasureChest {
-    private double weight;
+public class TreasureChest extends JAObject {
     private boolean open;
     private boolean locked;
 
@@ -18,17 +17,36 @@ public class TreasureChest {
      * and is locked and closed by default.
      */
     public TreasureChest() {
-        this.weight = 10.00;
+        super(null, null, 10.00);
         this.locked = true;
     }
 
-    /**
-     * Returns the weight of the treasure chest.
-     * @return The weight of the treasure chest to a precision of two decimal places.
-     */
-    public double getWeight() {
-        return weight;
+    public void setupDescriptionModifiers() {
+        // String Constants
+        String openModifierKey = "OPENMODIFIER";
+        String openModifierValue = "It lies open.";
+        String closedModifierKey = "CLOSEDMODIFIERE";
+        String closedModifierValue = "It is closed.";
+        String lockedModifierKey = "LOCKEDMODIFIER";
+        String lockedModifierValue = "It is tightly locked.";
+        String unlockedModifierKey = "UNLOCKEDMODIFIER";
+        String unlockedModifierValue = "It is unlocked.";
+
+        this.clearDescriptionModifiers();
+
+        if (this.isOpen()) {
+            this.addDescriptionModifier(openModifierKey, openModifierValue);
+        } else {
+            this.addDescriptionModifier(closedModifierKey, closedModifierValue);
+        }
+
+        if (this.isLocked()) {
+            this.addDescriptionModifier(lockedModifierKey, lockedModifierValue);
+        } else {
+            this.addDescriptionModifier(unlockedModifierKey, unlockedModifierValue);
+        }
     }
+
 
     /**
      * Indicates if the treasure chest is open or not.
@@ -82,17 +100,5 @@ public class TreasureChest {
      */
     public void close() {
         this.open = false;
-    }
-
-    /**
-     * Retrieves the description of the chest.
-     * @return The description of the chest, which is based on whether it is locked or not.
-     */
-    public String getDescription() {
-        return "A sturdy iron chest. " + getLockDescription();
-    }
-
-    private String getLockDescription() {
-        return this.locked ? "It is locked." : "It is unlocked.";
     }
 }
