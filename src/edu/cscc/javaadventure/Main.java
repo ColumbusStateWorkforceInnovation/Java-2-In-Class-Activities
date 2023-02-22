@@ -1,6 +1,6 @@
 package edu.cscc.javaadventure;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,16 +45,9 @@ public class Main {
             }
         } while(!done);
 
-        List<Character> members = party.getMembers();
         System.out.println("Party size: " + party.size());
-        for (Character character : members) {
-            System.out.println(character.getName());
+        for (Character member: party) {
+            System.out.println(member.getName());
         }
-
-        Character gandalf = party.findMember(wizard.getName());
-        System.out.println("Found: " + gandalf.getName());
-        party.removeMember(gandalf.getName());
-
-        System.out.println("Party size: " + party.size());
     }
 }
