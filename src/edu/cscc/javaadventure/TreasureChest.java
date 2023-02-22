@@ -8,7 +8,8 @@ package edu.cscc.javaadventure;
  * A treasure chest also has a weight and a description. The description is
  * different depending on if the chest is locked or not.
  */
-public class TreasureChest extends JAObject {
+public class TreasureChest {
+    private double weight;
     private boolean open;
     private boolean locked;
 
@@ -17,32 +18,17 @@ public class TreasureChest extends JAObject {
      * and is locked and closed by default.
      */
     public TreasureChest() {
-        super(null, null, 10.00);
+        this.weight = 10.00;
         this.locked = true;
     }
 
-    public void setupDescriptionModifiers() {
-        // String Constants
-        String openModifierValue = "It lies open.";
-        String closedModifierValue = "It is closed.";
-        String lockedModifierValue = "It is tightly locked.";
-        String unlockedModifierValue = "It is unlocked.";
-
-        this.clearDescriptionModifiers();
-
-        if (this.isOpen()) {
-            this.addDescriptionModifier(ModifierName.OPEN_MODIFIER, openModifierValue);
-        } else {
-            this.addDescriptionModifier(ModifierName.CLOSED_MODIFIER, closedModifierValue);
-        }
-
-        if (this.isLocked()) {
-            this.addDescriptionModifier(ModifierName.LOCKED_MODIFIER, lockedModifierValue);
-        } else {
-            this.addDescriptionModifier(ModifierName.UNLOCKED_MODIFIER, unlockedModifierValue);
-        }
+    /**
+     * Returns the weight of the treasure chest.
+     * @return The weight of the treasure chest to a precision of two decimal places.
+     */
+    public double getWeight() {
+        return weight;
     }
-
 
     /**
      * Indicates if the treasure chest is open or not.
@@ -96,5 +82,17 @@ public class TreasureChest extends JAObject {
      */
     public void close() {
         this.open = false;
+    }
+
+    /**
+     * Retrieves the description of the chest.
+     * @return The description of the chest, which is based on whether it is locked or not.
+     */
+    public String getDescription() {
+        return "A sturdy iron chest. " + getLockDescription();
+    }
+
+    private String getLockDescription() {
+        return this.locked ? "It is locked." : "It is unlocked.";
     }
 }

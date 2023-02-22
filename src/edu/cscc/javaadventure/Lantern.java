@@ -5,8 +5,9 @@ package edu.cscc.javaadventure;
  * The lantern can be lit or extinguished, broken or fixed.
  * It also has a weight and a description.
  */
-public class Lantern extends JAObject {
+public class Lantern {
     private boolean lit;
+    private double weight;
     private boolean broken;
 
     /**
@@ -14,7 +15,7 @@ public class Lantern extends JAObject {
      * By default the lantern is unlit, unbroken, and has a weight of 1.50.
      */
     public Lantern() {
-        super(null, null, 1.5);
+        weight = 1.50;
     }
 
     /**
@@ -39,24 +40,24 @@ public class Lantern extends JAObject {
         this.lit = false;
     }
 
-    // Mandatory implementation of the abstract method
-    // on JAObject. This method looks at the state of
-    // the lantern (lit or unlit) and builds
-    // the descriptionModifiers HashMap. The getDescription()
-    // method on JAObject relies on this method to generate
-    // an accurate description.
-    public void setupDescriptionModifiers() {
-        // String Constants
-        String litModifierValue = "It glows softly.";
-        String unlitModifierValue = "It is unlit.";
+    /**
+     * Get the description of the lantern. Indicates of the lantern is lit or not.
+     * @return The lantern description depending on if it is lit or not.
+     */
+    public String getDescription() {
+        return "A tarnished, old lantern that has seen better days. " + getLitDescription();
+    }
 
-        this.clearDescriptionModifiers();
+    private String getLitDescription() {
+        return !lit ? "It is unlit." : "It glows softly.";
+    }
 
-        if (this.isLit()) {
-            this.addDescriptionModifier(ModifierName.LIT_MODIFIER, litModifierValue);
-        } else {
-            this.addDescriptionModifier(ModifierName.UNLIT_MODIFIER, unlitModifierValue);
-        }
+    /**
+     * Gets the lantern's weight.
+     * @return The weight of the lantern to a precision of 2 decimal places.
+     */
+    public double getWeight() {
+        return weight;
     }
 
     /**

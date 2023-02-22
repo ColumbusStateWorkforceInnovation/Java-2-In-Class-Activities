@@ -2,8 +2,10 @@ package edu.cscc.javaadventure;
 
 import java.util.Objects;
 
-public class Character extends JAObject implements Comparable<Character> {
+public class Character {
 
+    private String name;
+    private String description;
     private Integer age;
     private String gender;
     private Integer strength;
@@ -18,12 +20,13 @@ public class Character extends JAObject implements Comparable<Character> {
     }
 
     public Character(String name) {
-        super(name, null, null);
+        this.name = name;
     }
 
     public Character(String name, String description, Integer age, String gender, Integer strength, Integer dexterity,
-                     Integer constitution, Integer intelligence, Integer wisdom, Integer charisma, Integer health, Double weight) {
-        super(name, description, weight);
+                     Integer constitution, Integer intelligence, Integer wisdom, Integer charisma, Integer health) {
+        this.name = name;
+        this.description = description;
         this.age = age;
         this.gender = gender;
         this.strength = strength;
@@ -35,14 +38,20 @@ public class Character extends JAObject implements Comparable<Character> {
         this.health = health;
     }
 
-    @Override
-    public int compareTo(Character otherCharacter) {
-        return this.name.compareTo(otherCharacter.getName());
+    public String getName() {
+        return name;
     }
 
-    @Override
-    protected void setupDescriptionModifiers() {
-        //Do nothing.
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getAge() {
@@ -122,7 +131,7 @@ public class Character extends JAObject implements Comparable<Character> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Character character = (Character) o;
-        return this.name.equals(character.name);
+        return name.equals(character.name);
     }
 
     @Override
